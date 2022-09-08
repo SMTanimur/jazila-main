@@ -1,0 +1,32 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@Hooks/*": ["src/Hooks/*"],
+      "@lib/*": ["src/lib/*"],
+      "@app/*": ["src/app/*"],
+      "@services/*": ["src/services/*"],
+      "@api/*": ["src/api/*"],
+      "@styles/*": ["src/styles/*"],
+      "@HOC/*": ["src/HOC/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@shared/*": ["src/shared/*"],
+      "@data/*": ["src/data/*"]
+    },
+    "jsx": "preserve",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "types": ["jest", "node"]
+  },
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "next-env.d.ts"],
+  "exclude": ["node_modules", "jest.config.ts"]
+}

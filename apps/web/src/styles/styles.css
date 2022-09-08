@@ -1,0 +1,13 @@
+@tailwind components;
+@tailwind base;
+@tailwind utilities;
+
+.header-active {
+  position: fixed;
+  top: -70px;
+  left: 0;
+  right: 0;
+  /* background: rgba(10, 25, 47, 0.85); */
+  transform: translateY(70px);
+  transition: transform 500ms ease, background 500ms ease;
+}
