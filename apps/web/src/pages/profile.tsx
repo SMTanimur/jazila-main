@@ -1,14 +1,16 @@
 /* eslint-disable react/jsx-no-undef */
 import AppLayout from '@components/Layout/AppLayout'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import coverImg from '/public/images/slide1-850x392.webp'
 import Image from 'next/image'
 import { useUser } from '@Hooks/useUser'
 import { withAuth } from '@HOC/withAuth'
 import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
 
 function Profile() {
   const {data:user}=useUser()
+
   const [data, setData] = useState([])
   return (
     <section className="xl:px-24 sm:px-10 px-4 pt-10">

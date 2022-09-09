@@ -7,11 +7,24 @@ import { useRouter } from 'next/router';
 
 import React, { useState } from 'react';
 import { useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
 import { socialIconData } from 'src/data/Social';
 
 const TopBar = () => {
+  const {push}= useRouter()
   const queryClient = useQueryClient();
   const { data: user } = useUser();
+    const handleLogOut = async () => {
+      try {
+        await logOutUser();
+         toast.success('user logOut successfully')
+         queryClient.resetQueries(['me']);
+         push('/')
+      } catch (error) {
+        toast.error(error)
+        console.log(error);
+      }
+    }
   const [open, setOpen] = useState(false);
   return (
     <div className="bg-gray-100  sm:px-4 py-3">
@@ -116,14 +129,7 @@ const TopBar = () => {
                   {user ? (
                     <li className=" py-1 rounded cursor-pointer  capitalize hover:bg-gray-100 transition duration-200 border-b border-gray-300">
                       <button
-                        onClick={async () => {
-                          try {
-                            await logOutUser();
-                             queryClient.resetQueries(['me']);
-                          } catch (error) {
-                            console.log(error);
-                          }
-                        }}
+                        onClick={handleLogOut}
                       >
                         logout
                       </button>
