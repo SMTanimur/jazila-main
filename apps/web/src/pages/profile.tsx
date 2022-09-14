@@ -1,19 +1,16 @@
 /* eslint-disable react/jsx-no-undef */
 import AppLayout from '@components/Layout/AppLayout'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import coverImg from '/public/images/slide1-850x392.webp'
 import Image from 'next/image'
 import { useUser } from '@Hooks/useUser'
-import { withAuth } from '@HOC/withAuth'
-import { GetServerSideProps } from 'next'
-import { useRouter } from 'next/router'
 
 function Profile() {
   const {data:user}=useUser()
-
+  
   const [data, setData] = useState([])
   return (
-    <section className="xl:px-24 sm:px-10 px-4 pt-10">
+    <section className="container px-4 pt-10">
         <div className=" min-h-screen ">
           {/* profile image section */}
           <div className="w-full h-1/4">
@@ -53,13 +50,18 @@ function Profile() {
                       </svg>
                     </label>
                   </div>
-                  <Image
+                  {
+                   user &&(
+                    <Image
                     className=" -z-0 rounded-full hover:opacity-80 bg-slate-500"
                     alt=""
                     src={user?.avatar}
                     width={200}
                     height={200}
                   />
+                   )
+                  }
+                  
                 </div>
               </div>
             </div>
@@ -104,8 +106,3 @@ function Profile() {
 
 Profile.layout = AppLayout
 export default Profile
-export const getServerSideProps: GetServerSideProps = withAuth(async () => {
-  return {
-    props: {},
-  }
-})

@@ -6,8 +6,8 @@ import { getUserDetails } from "src/api"
 
 
 
-export const useUser=()=>{
-   return useQuery(['me'],getUserDetails)
+export const useUser= ()=>{
+   return useQuery(['me'], getUserDetails)
 }
 
 

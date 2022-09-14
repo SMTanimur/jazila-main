@@ -1,7 +1,7 @@
 
 import { Injectable } from '@nestjs/common';
-import { UserService } from '../user/user.service';
-import { UserDocument } from '../user/entities/user.schema';
+import { UserService } from '../users/user.service';
+import { UserDocument } from '../users/entities/user.schema';
 import { LoginRequestDto } from './dto';
 
 

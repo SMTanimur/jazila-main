@@ -57,7 +57,7 @@ const TopBar = () => {
         </div>
         {/*_..........Right side............*/}
         <div className="flex w-full justify-between  sm:justify-end items-center md:divide-x-2 divide-gray-300 text-sm">
-          <span className="hidden md:flex items-center md:px-4">
+          <span className="hidden md:flex items-center md:px-4 text-xs">
             Call: 09678-300400
           </span>
           {/*---------user of account details--------- */}
