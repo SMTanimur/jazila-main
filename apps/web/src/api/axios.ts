@@ -23,6 +23,8 @@ const dynamicAPI = async (method:string, url:string, obj = {}) => {
 
       case 'put':
         return await api.put(url, obj).then((res) => res.data)
+      case 'patch':
+        return await api.patch(url, obj).then((res) => res.data)
 
       case 'delete':
         return await api.delete(url).then((res) => res.data)

@@ -45,7 +45,7 @@ export class UsersController {
     return this.userService.findAll();
   }
 
-  @Patch()
+  @Patch('update')
   @UseGuards(RolesGuard, AuthenticatedGuard)
   @Roles(ROLE_ENUM.ADMIN, ROLE_ENUM.USER)
   async update(

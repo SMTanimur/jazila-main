@@ -20,17 +20,14 @@ const DashboardLayout: React.FC<Props> = ({ children, title }) => {
   }, [data, push]);
   return (
     <>
-      <Head>
-        <title>{title}</title>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
       <Navbar />
-      <div className='flex  overflow-hidden container'>
-      <ClientSidebar_Dashboard/>
-      <main className=' h-full overflow-y-auto '>
-        {children}
-      </main>
+      <div className=' bg-gray-100 w-full h-full'>
+      <div className="flex  overflow-hidden container">
+        <div className="hidden xl:block w-[30%] py-3">
+          <ClientSidebar_Dashboard />
+        </div>
+        <main className=" h-full overflow-y-auto w-full ">{children}</main>
+      </div>
       </div>
       <Footer />
     </>

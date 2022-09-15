@@ -16,22 +16,22 @@ import { UploadService } from './upload.service';
 export class UploadController {
   constructor(private readonly uploadService: UploadService) {}
 
-  @Post('image')
+  @Post('avatar')
   @UseGuards(AuthenticatedGuard)
   @ApiBody({
     required: true,
-    type: "multipart/form-data",
+    type: 'multipart/form-data',
     schema: {
-      type: "object",
+      type: 'object',
       properties: {
-        image: {
-          type: "string",
-          format: "binary",
+        avatar: {
+          type: 'string',
+          format: 'binary',
         },
       },
     },
   })
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(FileInterceptor('avatar'))
   @ApiConsumes('multipart/form-data')
   async uploadImage(
     @UploadedFile() file: Express.Multer.File

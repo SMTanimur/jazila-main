@@ -31,7 +31,7 @@ const TopBar = () => {
       <div className="flex  justify-between items-center container px-4">
         {/* left side */}
         <div className="sm:block hidden w-[20%]">
-          <div className="text-sm text-gray-600">
+          <div className="text-sm sm:text-base text-gray-600">
             {user ? (
               <div>
                 Welcome to E-market
@@ -57,7 +57,7 @@ const TopBar = () => {
         </div>
         {/*_..........Right side............*/}
         <div className="flex w-full justify-between  sm:justify-end items-center md:divide-x-2 divide-gray-300 text-sm">
-          <span className="hidden md:flex items-center md:px-4 text-xs">
+          <span className="hidden md:flex items-center md:px-4 text-base">
             Call: 09678-300400
           </span>
           {/*---------user of account details--------- */}
@@ -96,7 +96,7 @@ const TopBar = () => {
                 className=" absolute rounded p-3 bg-white border w-full shadow mt-2 text-base overflow-hidden duration-300 z-10"
                 onClick={() => setOpen(false)}
               >
-                <ul className=" ">
+                <ul className=" text-base">
                   {user?.role === 'admin' ? (
                     <Link href="/dashboard" passHref>
                       <li className=" py-1 rounded cursor-pointer capitalize hover:bg-gray-100 transition duration-200 border-b border-gray-300">
@@ -151,7 +151,7 @@ const TopBar = () => {
             {socialIconData.map((social) => (
               <a
                 key={social.id}
-                className=" text-gray-600 hover:text-pink-500 transition-all duration-700"
+                className=" text-gray-600 text-base hover:text-pink-500 transition-all duration-700"
                 href={social.link}
               >
                 {social.title}

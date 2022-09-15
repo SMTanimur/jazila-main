@@ -60,7 +60,7 @@ function BottomBar() {
         )}
 
         {/*main Menu*/}
-        <ul className="hidden uppercase text-white font-bold lg:flex items-center space-x-1 text-sm">
+        <ul className="hidden uppercase text-white font-bold lg:flex items-center space-x-1 text-base">
           <li className=" hover:text-gray-100">
             <Link href="/" passHref>
               <div className="p-3 cursor-pointer">Home</div>
@@ -99,7 +99,7 @@ function BottomBar() {
 
           <li x-data="{dropdown:false}" className="relative">
             <button
-              className="p-3 flex items-center font-bold text-sm uppercase"
+              className="p-3 flex items-center font-bold uppercase"
               onClick={() => setAboutOpen(!aboutopen)}
             >
               ABOUT US

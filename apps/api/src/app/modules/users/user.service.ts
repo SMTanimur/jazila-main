@@ -14,10 +14,7 @@ import { User, UserDocument } from './entities';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectModel(User.name) private userModel: Model<UserDocument>,
-
-  ) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
   async create(createUserDto: CreateUserDto) {
     const user = await this.findOne({ email: createUserDto.email });
     if (user) throw new ConflictException('User already exists');
@@ -34,8 +31,8 @@ export class UserService {
     if (updateUserDto.password) {
       updateUserDto.password = await createHash(updateUserDto.password);
     }
-       
-    const user = this.userModel.findByIdAndUpdate(id, updateUserDto, {
+
+    const user = await this.userModel.findByIdAndUpdate(id, updateUserDto, {
       new: true,
     });
     if (!user) throw new NotFoundException('User not found');

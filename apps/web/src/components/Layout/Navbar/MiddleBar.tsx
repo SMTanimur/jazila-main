@@ -33,7 +33,7 @@ const MiddleBar = () => {
   };
   return (
      <div>
-    <div className="container flex items-center px-4 py-6">
+    <div className="container flex items-center px-4 py-6 text-base">
       <div className="sm:block hidden">
         <AppImage src="/jazila.png" alt="jazila" className="w-[100px] " />
       </div>
@@ -79,7 +79,7 @@ const MiddleBar = () => {
                 />
               </svg>
             </div>
-            <span className="hidden md:inline-block">Compare</span>
+            <span className="hidden md:inline-block text-base">Compare</span>
           </div>
         </div>
         <div className=" relative">
