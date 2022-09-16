@@ -16,7 +16,7 @@ import { TimeoutInterceptor } from './interceptors/timeout.interceptor';
   controllers: [],
   providers: [
     // { provide: APP_INTERCEPTOR, useClass: TransformInterceptor},
-    { provide: APP_INTERCEPTOR, useClass: TimeoutInterceptor },
+    // { provide: APP_INTERCEPTOR, useClass: TimeoutInterceptor },
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
   ],
 })

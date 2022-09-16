@@ -18,7 +18,7 @@ const TopBar = () => {
       try {
         await logOutUser();
          toast.success('user logOut successfully')
-         queryClient.resetQueries(['me']);
+        await  queryClient.invalidateQueries(['me'])
          push('/')
       } catch (error) {
         toast.error(error)

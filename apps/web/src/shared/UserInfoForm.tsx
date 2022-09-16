@@ -4,7 +4,8 @@ import React from 'react';
 
 const UserInfoForm = () => {
   const { data: user } = useUser();
-  const { errors,  onSubmit, register, setImage} = useUserUpdate();
+  const { errors, onSubmit, register,setImage,isLoading} =
+    useUserUpdate();
   return (
     <React.Fragment>
       <form
@@ -46,9 +47,9 @@ const UserInfoForm = () => {
           </label>
           <input
             type="file"
-            onChange= {(e)=> {
-            console.log(e.target.files[0])
-              setImage(e.target.files[0])
+            onChange={(e) => {
+              console.log(e.target.files[0]);
+              setImage(e.target.files[0]);
             }}
             className={` border-2 rounded-md w-full py-2 text-lg pl-10 text-gray-800 focus:outline-none placeholder-gray-400 transition duration-300 `}
           />
@@ -71,7 +72,7 @@ const UserInfoForm = () => {
         </div>
 
         <button type="submit" className="bg-orange-600 py-5 px-10 self-end">
-          Update Profile
+          {isLoading ? 'Loading...' : 'Update Profile'}
         </button>
       </form>
     </React.Fragment>

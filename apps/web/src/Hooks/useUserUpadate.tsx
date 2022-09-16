@@ -1,62 +1,48 @@
-
-
 import { userUpdate } from '@api/user';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { useAvatarUpload } from './useAvatarUpload';
 
+
+
 interface UserUpdateParams {
   name: string;
   password: string;
-  avatar:string
+  avatar: string;
 }
 
 export const useUserUpdate = () => {
-  
-  const {image,setImage,uploadImage,url}= useAvatarUpload()
-  console.log(url)
   const queryClient = useQueryClient();
-  const { mutateAsync } = useMutation(userUpdate);
-
+  const { mutateAsync,isLoading } = useMutation(userUpdate, {
+    retry: 0,
+  });
+  const { uploadImage, fileLink,image,setImage } = useAvatarUpload();
+  console.log(fileLink,"f")
   const {
     register,
     handleSubmit,
+
     formState: { errors },
   } = useForm<UserUpdateParams>();
   const onSubmit = handleSubmit(async (payload) => {
-
-    
     try {
-      if (!image && url) {
-       await mutateAsync(
-          {
-            name: payload.name,
-            password: payload.password,
+     await uploadImage()
+      await mutateAsync(
+        {
+          name: payload.name,
+          password: payload.password,
+          avatar:fileLink
+        },
+        {
+          onSuccess: async (data) => {
+            console.log(data)
+            toast.success('user successfully updated');
+            await queryClient.invalidateQueries(['me']);
           },
-          {
-            onSuccess: async () => {
-              toast.success('user update Successfully');
-              await queryClient.invalidateQueries(['me'])
-            },
-          }
-        );
-      } else {
-      await uploadImage()
-      await  mutateAsync(
-          {
-            name: payload.name,
-            password: payload.password,
-            avatar: url,
-          },
-          {
-            onSuccess: async () => {
-              toast.success('user successfully updated');
-              await queryClient.invalidateQueries(['me'])
-            },
-          }
-        );
-      }
+        }
+      );
     } catch (error) {
       toast.error(error);
     }
@@ -67,6 +53,7 @@ export const useUserUpdate = () => {
     register,
     errors,
     setImage,
-    image
+    image,
+    isLoading
   };
 };

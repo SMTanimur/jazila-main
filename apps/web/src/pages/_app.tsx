@@ -9,8 +9,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import {  ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 function CustomApp({ Component, pageProps }: any) {
-  const [client] = useState(() => new QueryClient());
-
+ 
+   const client = new QueryClient()
    const [loading, setLoading] = useState(false);
   useEffect(() => {
     const start = () => {
@@ -33,7 +33,7 @@ function CustomApp({ Component, pageProps }: any) {
 
   const Layout = Component.layout || React.Fragment;
   return (
-    <QueryClientProvider {...{ client }}>
+    <QueryClientProvider client={client}>
     <Layout>
       <Head>
         <meta
