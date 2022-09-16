@@ -49,8 +49,8 @@ export class AuthController {
 
   @Get('me')
   @UseGuards(AuthenticatedGuard)
-  userProfile(@Req() req: any) {
-    return req.user
+  async userProfile(@Req() req: any) {
+    return await this.userService.findUserById(req.user._id);
   }
 
   @ApiOperation({ summary: 'user' })

@@ -1,19 +1,21 @@
+import { useAvatarUpload } from '@Hooks/useAvatarUpload';
 import { useUser } from '@Hooks/useUser';
 import { useUserUpdate } from '@Hooks/useUserUpadate';
 import React from 'react';
 
 const UserInfoForm = () => {
   const { data: user } = useUser();
-  const { errors, onSubmit, register,setImage,isLoading} =
-    useUserUpdate();
+  const { uploadImage, uploadingImage, fileLink } = useAvatarUpload();
+  const { errors, onSubmit, register, isLoading } = useUserUpdate(fileLink);
+
   return (
     <React.Fragment>
       <form
-        className="flex flex-col space-y-3 px-6 bg-white mt-6 py-3 justify-center"
+        className="flex flex-col justify-center px-6 py-3 mt-6 space-y-3 bg-white"
         onSubmit={onSubmit}
       >
-        <h5 className="text-xl text-gray-600 font-semibold ">basic Info</h5>
-        <div className="flex items-center text-gray-700 text-base">
+        <h5 className="text-xl font-semibold text-gray-600 ">basic Info</h5>
+        <div className="flex items-center text-base text-gray-700">
           <label className="w-[20%]">Your Name</label>
           <input
             type="text"
@@ -26,11 +28,11 @@ const UserInfoForm = () => {
             {...register('name')}
           />
           {errors.name && (
-            <span className=" flex text-red-500 ">{'Name is required'}</span>
+            <span className="flex text-red-500 ">{'Name is required'}</span>
           )}
         </div>
 
-        <div className="flex text-gray-700 text-base items-center">
+        <div className="flex items-center text-base text-gray-700">
           <label htmlFor="" className="w-[20%]">
             Your Email
           </label>
@@ -41,21 +43,20 @@ const UserInfoForm = () => {
             className={` border-2 rounded-md w-full py-2 text-lg pl-10 text-gray-800 focus:outline-none placeholder-gray-400 transition duration-300 `}
           />
         </div>
-        <div className="flex text-gray-700 text-base items-center">
+        <div className="flex items-center text-base text-gray-700">
           <label htmlFor="" className="w-[20%]">
             Your Avatar
           </label>
           <input
             type="file"
             onChange={(e) => {
-              console.log(e.target.files[0]);
-              setImage(e.target.files[0]);
+              uploadImage(e.target.files[0]);
             }}
             className={` border-2 rounded-md w-full py-2 text-lg pl-10 text-gray-800 focus:outline-none placeholder-gray-400 transition duration-300 `}
           />
         </div>
 
-        <div className="flex text-gray-700 text-base items-center">
+        <div className="flex items-center text-base text-gray-700">
           <label htmlFor="" className="w-[20%]">
             Your Password
           </label>
@@ -71,8 +72,14 @@ const UserInfoForm = () => {
           />
         </div>
 
-        <button type="submit" className="bg-orange-600 py-5 px-10 self-end">
-          {isLoading ? 'Loading...' : 'Update Profile'}
+        <button
+          disabled={isLoading || uploadingImage}
+          type="submit"
+          className={`self-end px-10 py-5 bg-orange-600 ${
+            isLoading || uploadingImage ? 'cursor-not-allowed' : ''
+          }`}
+        >
+          {isLoading || uploadingImage ? 'Loading...' : 'Update Profile'}
         </button>
       </form>
     </React.Fragment>

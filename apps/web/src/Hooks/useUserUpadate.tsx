@@ -1,11 +1,11 @@
 import { userUpdate } from '@api/user';
-import { useState } from 'react';
+import { isEmpty } from 'lodash';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import { useAvatarUpload } from './useAvatarUpload';
-
-
+import { useUser } from './useUser';
 
 interface UserUpdateParams {
   name: string;
@@ -13,36 +13,47 @@ interface UserUpdateParams {
   avatar: string;
 }
 
-export const useUserUpdate = () => {
+export const useUserUpdate = (avatar?: string) => {
   const queryClient = useQueryClient();
-  const { mutateAsync,isLoading } = useMutation(userUpdate, {
+  const { data } = useUser();
+  const { setFileLink } = useAvatarUpload();
+
+  const { mutateAsync, isLoading } = useMutation(userUpdate, {
     retry: 0,
   });
-  const { uploadImage, fileLink,image,setImage } = useAvatarUpload();
-  console.log(fileLink,"f")
+  // console.log({ fileLink });
   const {
     register,
     handleSubmit,
-
+    reset,
     formState: { errors },
   } = useForm<UserUpdateParams>();
+
+  useEffect(() => {
+    if (data) {
+      reset({
+        name: data.name,
+      });
+    }
+  }, [data]);
+
   const onSubmit = handleSubmit(async (payload) => {
+    if (isEmpty(payload.password)) {
+      delete payload.password;
+    }
+
+    if (!isEmpty(avatar)) {
+      payload.avatar = avatar;
+    }
+
     try {
-     await uploadImage()
-      await mutateAsync(
-        {
-          name: payload.name,
-          password: payload.password,
-          avatar:fileLink
+      await mutateAsync(payload, {
+        onSuccess: async (data) => {
+          setFileLink('');
+          toast.success('user successfully updated');
+          await queryClient.invalidateQueries(['me']);
         },
-        {
-          onSuccess: async (data) => {
-            console.log(data)
-            toast.success('user successfully updated');
-            await queryClient.invalidateQueries(['me']);
-          },
-        }
-      );
+      });
     } catch (error) {
       toast.error(error);
     }
@@ -52,8 +63,6 @@ export const useUserUpdate = () => {
     onSubmit,
     register,
     errors,
-    setImage,
-    image,
-    isLoading
+    isLoading,
   };
 };
