@@ -2,7 +2,7 @@ import { createSlugify } from './../../../utils/slug';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import  { Document } from 'mongoose';
 
-export type CategoryDocument = Category & Document;
+
 
 @Schema({ timestamps: true })
 export class Category {
@@ -23,7 +23,7 @@ export class Category {
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);
-
+export type CategoryDocument = Category & Document;
   
 CategorySchema.pre('save', function(next){
   this.slug= createSlugify(this.categoryName)

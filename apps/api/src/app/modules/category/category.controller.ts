@@ -1,7 +1,3 @@
-/*
-https://docs.nestjs.com/controllers#controllers
-*/
-
 import {
   Body,
   Controller,
@@ -34,27 +30,37 @@ export class CategoryController {
     private readonly cloudinary: CloudinaryService
   ) {}
 
-  @UseInterceptors(FileInterceptor('Icon'))
+  @ApiBody({
+    required: true,
+    type: 'multipart/form-data',
+    schema: {
+      type: 'object',
+      properties: {
+        categoryName: { type: 'string' },
+        categoryIcon: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
+  @UseInterceptors(FileInterceptor('categoryIcon'))
   @UseGuards(RolesGuard, AuthenticatedGuard)
   @Roles(ROLE_ENUM.ADMIN)
   @Post('/')
+  @ApiConsumes('multipart/form-data')
   @HttpCode(201)
-  // @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'New Category create' })
   @ApiResponse({
     status: 201,
     description: 'Category has been created successfully',
   })
   async create(
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() categoryIcon: Express.Multer.File,
     @Body() createCategoryDto: CreateCategoryDto
   ): Promise<CategoryDocument> {
-     const  {secure_url}  = await this.cloudinary.uploadImage(file);
-    
-    createCategoryDto.image = secure_url
-    console.log(createCategoryDto.image)
-    
-   const result = await this.categoryService.create(createCategoryDto);
-   return result
+    const imageUrl = await this.cloudinary.uploadImage(categoryIcon);
+    createCategoryDto.image = imageUrl.toString();
+    return await this.categoryService.create(createCategoryDto);
   }
 }

@@ -1,6 +1,3 @@
-/*
-https://docs.nestjs.com/providers#services
-*/
 
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -14,6 +11,10 @@ export class CategoryService {
   constructor(@InjectModel(Category.name) private categoryModel:Model<CategoryDocument>){}
    
   async create (createCategoryDto:CreateCategoryDto){
-    return await this.categoryModel.create(createCategoryDto)
+      try {
+        return await this.categoryModel.create(createCategoryDto)
+      } catch (error) {
+        console.log(error)
+      }
   }
 }

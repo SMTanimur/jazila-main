@@ -10,15 +10,13 @@ import { HttpExceptionFilter } from './filter/http-exception.filter';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { TimeoutInterceptor } from './interceptors/timeout.interceptor';
 @Module({
-  imports: [
-    MongooseModule.forRoot(ServerConfig.NX_MONGODB_URI),
-   
-  ],
+  imports: [MongooseModule.forRoot(ServerConfig.NX_MONGODB_URI)],
   controllers: [],
   providers: [
-    // { provide: APP_INTERCEPTOR, useClass: TransformInterceptor},
-    // { provide: APP_INTERCEPTOR, useClass: TimeoutInterceptor },
-   
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
   ],
 })
