@@ -9,6 +9,7 @@ export const CloudinaryProvider = {
       cloud_name:ServerConfig.NX_CLOUDINARY_CLOUD_NAME ,
       api_key: ServerConfig.NX_CLOUDINARY_API_KEY,
       api_secret: ServerConfig.NX_CLOUDINARY_API_SECRET,
+      
     });
   },
 };

@@ -1,3 +1,4 @@
+import { CategoryModule } from './modules/category/category.module';
 
 import { CoreModule } from './modules/core/core.module';
 import { Module } from '@nestjs/common';
@@ -8,14 +9,16 @@ import { UploadModule } from './modules/upload/upload.module';
 import { memoryStorage } from 'multer';
 import { MulterModule } from '@nestjs/platform-express';
 
-
 @Module({
   imports: [
+    CategoryModule,
     MulterModule.register({
       storage: memoryStorage(), // use memory storage for having the buffer
     }),
-    authModule, CoreModule,UsersModule,
-  UploadModule
+    authModule,
+    CoreModule,
+    UsersModule,
+    UploadModule,
   ],
   controllers: [],
   providers: [],

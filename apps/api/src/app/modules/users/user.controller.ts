@@ -46,7 +46,7 @@ export class UsersController {
   }
 
   @Patch('update')
-  @UseGuards(RolesGuard, AuthenticatedGuard)
+  @UseGuards(RolesGuard)
   @Roles(ROLE_ENUM.ADMIN, ROLE_ENUM.USER)
   async update(
     @Request() req: { user: UserDocument },

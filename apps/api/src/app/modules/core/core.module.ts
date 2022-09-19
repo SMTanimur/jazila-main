@@ -3,9 +3,10 @@ https://docs.nestjs.com/modules
 */
 
 import { Module } from '@nestjs/common';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServerConfig } from '../../configs/server.config';
+import { HttpExceptionFilter } from './filter/http-exception.filter';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 import { TimeoutInterceptor } from './interceptors/timeout.interceptor';
 @Module({
@@ -17,6 +18,7 @@ import { TimeoutInterceptor } from './interceptors/timeout.interceptor';
   providers: [
     // { provide: APP_INTERCEPTOR, useClass: TransformInterceptor},
     // { provide: APP_INTERCEPTOR, useClass: TimeoutInterceptor },
+   
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
   ],
 })

@@ -35,7 +35,7 @@ export const useUserUpdate = (avatar?: string) => {
         name: data.name,
       });
     }
-  }, [data]);
+  }, [data, reset]);
 
   const onSubmit = handleSubmit(async (payload) => {
     if (isEmpty(payload.password)) {

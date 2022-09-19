@@ -75,7 +75,7 @@ const UserInfoForm = () => {
         <button
           disabled={isLoading || uploadingImage}
           type="submit"
-          className={`self-end px-10 py-5 bg-orange-600 ${
+          className={`self-end px-10 py-5 bg-orange-600 text-base text-white hover:bg-opacity-75 transition-all rounded-md ${
             isLoading || uploadingImage ? 'cursor-not-allowed' : ''
           }`}
         >

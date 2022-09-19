@@ -33,6 +33,7 @@ export interface UserDocument extends User, mongoose.Document {
 
 export const UserSchema = SchemaFactory.createForClass(User);
 
+
 UserSchema.methods.comparePassword = async function (
   password: string
 ): Promise<boolean> {
