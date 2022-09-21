@@ -1,5 +1,5 @@
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateCategoryDto } from './dto';
@@ -14,7 +14,7 @@ export class CategoryService {
       try {
         return await this.categoryModel.create(createCategoryDto)
       } catch (error) {
-        console.log(error)
+        throw new NotAcceptableException('please ')
       }
   }
 }

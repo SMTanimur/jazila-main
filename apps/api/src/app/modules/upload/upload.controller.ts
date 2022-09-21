@@ -60,8 +60,9 @@ export class UploadController {
       type: 'object',
       properties: {
         productImage: {
-          type: 'file',
+          type:'string' ,
           format: 'binary',
+          multipleOf:4
         },
       },
     },

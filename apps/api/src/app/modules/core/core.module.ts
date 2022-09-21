@@ -13,10 +13,10 @@ import { TimeoutInterceptor } from './interceptors/timeout.interceptor';
   imports: [MongooseModule.forRoot(ServerConfig.NX_MONGODB_URI)],
   controllers: [],
   providers: [
-    {
-      provide: APP_FILTER,
-      useClass: HttpExceptionFilter,
-    },
+    // {
+    //   provide: APP_FILTER,
+    //   useClass: HttpExceptionFilter,
+    // },
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
   ],
 })

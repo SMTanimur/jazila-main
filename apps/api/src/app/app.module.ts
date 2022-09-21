@@ -1,3 +1,5 @@
+import { ProductModule } from './modules/product/product.module';
+import { BrandModule } from './modules/brand/brand.module';
 import { CategoryModule } from './modules/category/category.module';
 
 import { CoreModule } from './modules/core/core.module';
@@ -11,6 +13,8 @@ import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
+    ProductModule,
+    BrandModule,
     CategoryModule,
     MulterModule.register({
       storage: memoryStorage(), // use memory storage for having the buffer
