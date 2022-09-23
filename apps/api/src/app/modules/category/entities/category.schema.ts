@@ -13,8 +13,8 @@ export class Category {
   @Prop()
   image: string;
 
-  // @Prop({unique:true})
-  // slug:string
+  @Prop({unique:true})
+  slug:string
 
   createdAt: Date;
 
@@ -24,7 +24,7 @@ export class Category {
 export const CategorySchema = SchemaFactory.createForClass(Category);
 export type CategoryDocument = Category & Document;
   
-// CategorySchema.pre('save', function(next){
-//   this.slug= createSlugify(this.categoryName)
-//   next()
-// })
+CategorySchema.pre('save', function(next){
+  this.slug= createSlugify(this.categoryName)
+  next()
+})

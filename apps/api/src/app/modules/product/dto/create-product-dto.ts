@@ -20,8 +20,8 @@ export class CreateProductDto {
   @ApiProperty({ type: 'string' })
   category: any;
 
-  // @ApiProperty({ type: 'string' })
-  // brand: any;
+  @ApiProperty({ type: 'string' })
+  brand: any;
 
   @ApiProperty({ type: 'string', format: 'binary' })
   ProductImgs: string[];
