@@ -1,19 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { IsArray, IsNotEmpty, IsNumber, IsString, MinLength, ValidateNested } from 'class-validator';
+import { IsMongoId, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
-
-
-class category {
-  @IsNotEmpty()
-  @IsString()
- categoryName: string;
-}
-
-class brand{
-  @IsString()
-  name:string
-}
 export class CreateProductDto {
   @ApiProperty()
   @IsNotEmpty()
@@ -27,27 +15,23 @@ export class CreateProductDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  readonly price:number
+  readonly price: number;
 
-  // @ApiProperty()
-  // @Type(()=>category)
-  // @ValidateNested()
-  // category:category
+  @ApiProperty({ type: 'string' })
+  category: any;
 
-  // @ApiProperty()
-  // @Type(()=>brand)
-  // @ValidateNested()
-  // brand:brand
-  
-  @ApiProperty()
-  ProductImgs:string[]
+  // @ApiProperty({ type: 'string' })
+  // brand: any;
+
+  @ApiProperty({ type: 'string', format: 'binary' })
+  ProductImgs: string[];
 
   @ApiProperty()
   @IsNotEmpty()
-  readonly stock:number
+  readonly stocks: number;
 
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  readonly size:string
+  readonly size: string;
 }

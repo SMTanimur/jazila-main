@@ -7,3 +7,7 @@
       console.log('fdjgfdkgj')
       toast.error(getError(err))
     }
+    {connectionFactory: (connection) => {
+   connection.plugin(require('mongoose-autopopulate'));
+    return connection;
+  }}

@@ -14,7 +14,6 @@ import {
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import {
-  ApiBody,
   ApiConsumes,
   ApiOperation,
   ApiResponse,
@@ -40,42 +39,6 @@ export class ProductController {
     description: 'Product  created successfully',
   })
 
-  @ApiBody({
-    required: true,
-    type: 'multipart/form-data',
-    schema: {
-      type: 'object',
-      properties: {
-
-        name:{
-         type:'string'
-        },
-        descriptions:{
-         type:'string'
-        },
-        price:{
-         type:'number'
-        },
-        // category:{
-        //   type:'string'
-        //  },
-        //  brand:{
-        //   type:'string'
-        //  },
-         stock:{
-          type:'number'
-         },
-         size:{
-          type:'string'
-         },
-        ProductImgs: {
-          type:'string' ,
-          format: 'binary',
-        },
-
-      },
-    },
-  })
   @UseGuards(RolesGuard, AuthenticatedGuard)
   @Roles(ROLE_ENUM.ADMIN)
   @Post('/')

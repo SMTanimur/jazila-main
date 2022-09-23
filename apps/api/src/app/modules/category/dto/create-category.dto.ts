@@ -11,6 +11,6 @@ export class CreateCategoryDto {
   readonly categoryName: string;
 
   
-  @ApiProperty()
+  @ApiProperty({type:'string',format:'binary'})
   image: string
 }

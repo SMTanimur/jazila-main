@@ -30,21 +30,8 @@ export class CategoryController {
     private readonly cloudinary: CloudinaryService
   ) {}
 
-  @ApiBody({
-    required: true,
-    type: 'multipart/form-data',
-    schema: {
-      type: 'object',
-      properties: {
-        categoryName: { type: 'string' },
-        categoryIcon: {
-          type: 'string',
-          format: 'binary',
-        },
-      },
-    },
-  })
-  @UseInterceptors(FileInterceptor('categoryIcon'))
+ 
+  @UseInterceptors(FileInterceptor('image'))
   @UseGuards(RolesGuard, AuthenticatedGuard)
   @Roles(ROLE_ENUM.ADMIN)
   @Post('/')

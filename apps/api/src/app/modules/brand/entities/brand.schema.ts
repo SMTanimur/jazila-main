@@ -10,13 +10,13 @@ export class Brand {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ unique: true })
-  slug: string;
+  // @Prop({ unique: true })
+  // slug: string;
 }
 
 export const BrandSchema = SchemaFactory.createForClass(Brand);
 
-BrandSchema.pre('save', function (next) {
-  this.slug = createSlugify(this.name);
-  next();
-});
+// BrandSchema.pre('save', function (next) {
+//   this.slug = createSlugify(this.name);
+//   next();
+// });
