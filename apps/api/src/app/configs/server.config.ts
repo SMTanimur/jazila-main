@@ -35,4 +35,7 @@ export class ServerConfig {
   )
     .required()
     .asString();
+    public static readonly NX_CLOUDINARY_FOLDER:string =get('CLOUDINARY_FOLDER')
+    .required()
+    .asString()
 }

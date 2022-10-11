@@ -98,13 +98,13 @@ const TopBar = () => {
               >
                 <ul className="text-base ">
                   {user?.role === 'admin' ? (
-                    <Link href="/dashboard" passHref>
+                    <Link href="/admin" passHref>
                       <li className="py-1 capitalize transition duration-200 border-b border-gray-300 rounded cursor-pointer hover:bg-gray-100">
                         Admin panel
                       </li>
                     </Link>
                   ) : (
-                    <Link href="/profile" passHref>
+                    <Link href="/dashboard" passHref>
                       <li className="py-1 capitalize transition duration-200 border-b border-gray-300 rounded cursor-pointer hover:bg-gray-100">
                         Profile
                       </li>

@@ -17,6 +17,7 @@ import {
 } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
+import { Roles, RolesGuard, ROLE_ENUM } from '../../common/roles';
 import { AuthenticatedGuard } from '../auth';
 import { CloudinaryService } from '../cloudinary';
 import { UploadService } from './upload.service';
@@ -51,8 +52,11 @@ export class UploadController {
   ): Promise<UploadApiResponse | UploadApiErrorResponse> {
     return await this.uploadService.uploadAvatar(file);
   }
-  @Post('product')
-  // @UseGuards(AuthenticatedGuard)
+
+
+  @UseGuards(RolesGuard, AuthenticatedGuard)
+  @Roles(ROLE_ENUM.ADMIN)
+  @Post('product-images')
   @ApiBody({
     required: true,
     type: 'multipart/form-data',
@@ -67,18 +71,19 @@ export class UploadController {
       },
     },
   })
-  @UseInterceptors(FilesInterceptor("productImage", 4))
+  @UseInterceptors(FileInterceptor("productImage"))
   @ApiConsumes('multipart/form-data')
-  async uploadProduct(@UploadedFiles() files: Express.Multer.File[]) {
-    const imageUrls = [];
+  async uploadProduct(@UploadedFile() file: Express.Multer.File) {
+    // const imageUrls = [];
 
-    if (!files?.length) throw new BadRequestException("Minimum 1 product image is required!");
+    // if (!files?.length) throw new BadRequestException("Minimum 1 product image is required!");
 
-    for (const image of files) {
-      const imageUrl = await this.cloudinaryService.uploadImage(image)
-      imageUrls.push(imageUrl);
-    }
-    return imageUrls
-
+    // for (const image of files) {
+    //   const imageUrl = await this.cloudinaryService.uploadImage(image,'product')
+    //   imageUrls.push(imageUrl);
+    // }
+    //  console.log(imageUrls)
+    // return imageUrls
+    return await this.cloudinaryService.uploadImage(file,'product')
   }
 }

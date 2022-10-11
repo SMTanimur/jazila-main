@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ApiProperty } from '@nestjs/swagger';
-import { IsMongoId, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+import {  IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class CreateProductDto {
   @ApiProperty()
@@ -24,7 +24,7 @@ export class CreateProductDto {
   brand: any;
 
   @ApiProperty({ type: 'string', format: 'binary' })
-  ProductImgs: string[];
+  productImgs: string[];
 
   @ApiProperty()
   @IsNotEmpty()
@@ -35,3 +35,5 @@ export class CreateProductDto {
   @IsNotEmpty()
   readonly size: string;
 }
+
+export class UpdateProductDto extends PartialType(CreateProductDto){}

@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { CategoriesMenuItem } from 'src/data/categoriseItem';
+import { useGetAllCategory } from '@Hooks/useGetAllCategory';
+import Image from 'next/image';
+import { ICategory } from '@interfaces/Categories';
 export default function SidebarCategories() {
   const [open, setOpen] = useState(false);
+
+   const {data} =useGetAllCategory()
   return (
     <ul className=" border rounded divide-y">
       <li className="  p-3 flex items-center bg-gray-200 bg-opacity-80 rounded">
@@ -26,10 +30,10 @@ export default function SidebarCategories() {
       </li>
 
      {
-      CategoriesMenuItem.map((item)=>(
+      data?.map((item:ICategory)=>(
 <Link
-          key={item.id}
-          href={`/product?category=${item.title.split(' ').join('')}`}
+          key={item?.slug}
+          href={`/product?category=${item.slug.split(' ').join('')}`}
           passHref
         >
           <li
@@ -37,8 +41,8 @@ export default function SidebarCategories() {
             // onClick={() => categoryHandler(item.title)}
           >
             <a className=" w-full gap-5 flex items-center  text-gray-500 text-sm hover:text-pink-500">
-              {item.icon}
-              {item.title}
+             <Image src={item.image} alt={item.categoryName} width={60} height={60}/>
+              {item?.categoryName}
             </a>
           </li>
         </Link>

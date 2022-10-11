@@ -1,6 +1,6 @@
 import { userUpdate } from '@api/user';
 import { isEmpty } from 'lodash';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';

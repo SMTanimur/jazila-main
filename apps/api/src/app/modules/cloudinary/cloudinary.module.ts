@@ -7,7 +7,8 @@ import { CloudinaryService } from './cloudinary.service';
 @Module({
   imports: [
     MulterModule.register({
-      storage: memoryStorage(), // use memory storage for having the buffer
+      storage: memoryStorage(), 
+      // use memory storage for having the buffer
     }),
   ],
   providers: [CloudinaryProvider, CloudinaryService],

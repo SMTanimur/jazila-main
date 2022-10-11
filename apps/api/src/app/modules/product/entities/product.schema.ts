@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { trusted } from 'mongoose';
+import mongoose from 'mongoose';
 import { createSlugify } from '../../../utils/slug';
 import { Brand } from '../../brand/entities';
 import { Category } from '../../category/entities';
@@ -19,12 +19,12 @@ export class Product {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Brand',
-    autopopulate:trusted
+    autopopulate: true,
   })
   brand: Brand;
 
-  @Prop({ default: [] })
-  ProductImgs: string[];
+  @Prop({required:true, default: [] })
+  productImgs: string[];
 
   @Prop({ required: true })
   descriptions: string;
@@ -32,16 +32,16 @@ export class Product {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
-    autopopulate: true
+    autopopulate: true,
   })
   category: Category;
 
   @Prop({ default: 0 })
   stocks: number;
-  @Prop({ required: true, default: Date.now })
+  @Prop({ default: Date.now })
   discountTargetDate: Date;
 
-  @Prop({ required: true, default: 0 })
+  @Prop({ default: 0 })
   discount: number;
 
   @Prop()
@@ -52,8 +52,8 @@ export class Product {
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
-  
-ProductSchema.plugin(require('mongoose-autopopulate'))
+
+ProductSchema.plugin(require('mongoose-autopopulate'));
 ProductSchema.pre('save', function (next) {
   this.slug = createSlugify(this.name);
   next();

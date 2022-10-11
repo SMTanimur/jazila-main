@@ -1,35 +1,34 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /*
 https://docs.nestjs.com/controllers#controllers
 */
 
 import {
-  BadRequestException,
   Body,
   Controller,
+  Delete,
+  Get,
   HttpCode,
+  Param,
   Post,
-  UploadedFiles,
+  Put,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
-import { FilesInterceptor } from '@nestjs/platform-express';
+
 import {
-  ApiConsumes,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { Roles, RolesGuard, ROLE_ENUM } from '../../common/roles';
 import { AuthenticatedGuard } from '../auth';
-import { CloudinaryService } from '../cloudinary';
-import { CreateProductDto } from './dto/create-product-dto';
+import { CreateProductDto, UpdateProductDto } from './dto/create-product-dto';
 import { ProductService } from './product.service';
 @ApiTags('Product')
 @Controller('products')
 export class ProductController {
   constructor(
     private readonly productService: ProductService,
-    private readonly coudinaryService: CloudinaryService
   ) {}
 
   @HttpCode(201)
@@ -38,32 +37,57 @@ export class ProductController {
     status: 201,
     description: 'Product  created successfully',
   })
+  @UseGuards(RolesGuard, AuthenticatedGuard)
+  @Roles(ROLE_ENUM.ADMIN)
+  @Post('/create')
+  async create(
+    @Body() createProductDto: CreateProductDto,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): Promise<any> {
+  
+    const response = await this.productService.createProduct(createProductDto);
+    return {
+      message: 'Product Create Successfully',
+      data: {
+        id: response.id,
+      },
+    };
+  }
 
   @UseGuards(RolesGuard, AuthenticatedGuard)
   @Roles(ROLE_ENUM.ADMIN)
-  @Post('/')
-  @ApiConsumes('multipart/form-data')
-  @UseInterceptors(FilesInterceptor('ProductImgs', 4))
-  async create(
-    @Body() createProductDto: CreateProductDto,
-    @UploadedFiles() ProductImgs: Express.Multer.File[]
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateProductDto: UpdateProductDto,
   ): Promise<any> {
-    const imageUrls = [];
-    if (!ProductImgs?.length)
-      throw new BadRequestException('Minimum 1 product image is required!');
-    for (const file of ProductImgs) {
-      const FileUrl = await this.coudinaryService.uploadImage(file);
-      imageUrls.push(FileUrl);
-    }
-    createProductDto.ProductImgs = imageUrls;
-     const response = await this.productService.createProduct(createProductDto)
+    const response = await this.productService.updateProduct(
+      updateProductDto,
+      id
+    );
 
-     return{
-      message:"Product Create Successfully",
-      data:{
-        id:response.id
-      }
-     }
+    return {
+      message: 'Product Create Successfully',
+      response,
+    };
+  }
+
+  @Get()
+  async findAll(): Promise<any> {
+    return this.productService.findAll();
+  }
+
+  
+  @Get(':slug')
+  async findBySlug (@Param('slug') slug:string){
+      return this.productService.findOneBySlug(slug)
+  }
+   
+
+  @UseGuards(RolesGuard, AuthenticatedGuard)
+  @Roles(ROLE_ENUM.ADMIN)
+  @Delete(':slug')
+  async findProductAndDeleteByID (@Param('slug') slug:string){
+    return await this.productService.deleteProductById(slug)
   }
 }

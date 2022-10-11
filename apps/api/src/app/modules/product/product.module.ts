@@ -5,12 +5,11 @@ https://docs.nestjs.com/modules
 */
 
 import { Module } from '@nestjs/common';
-import { CloudinaryService } from '../cloudinary';
 import { ProductModel } from './entities';
 
 @Module({
   imports: [ProductModel],
   controllers: [ProductController],
-  providers: [ProductService,CloudinaryService],
+  providers: [ProductService],
 })
 export class ProductModule {}
