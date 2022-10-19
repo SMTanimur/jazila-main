@@ -11,3 +11,5 @@
    connection.plugin(require('mongoose-autopopulate'));
     return connection;
   }}
+
+  NX_MONGODB_URI=mongodb://localhost:27017/jazila

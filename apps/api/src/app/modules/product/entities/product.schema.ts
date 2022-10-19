@@ -7,7 +7,7 @@ import { Category } from '../../category/entities';
 export type ProductDocument = Product & mongoose.Document;
 @Schema({ timestamps: true })
 export class Product {
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   name: string;
 
   @Prop({ unique: true })
@@ -19,6 +19,7 @@ export class Product {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Brand',
+    default: 'No Brand',
     autopopulate: true,
   })
   brand: Brand;

@@ -3,9 +3,15 @@
 https://docs.nestjs.com/providers#services
 */
 
-import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { PaginateDto } from '../../common/dto/paginate-sort-dto';
 import { CreateProductDto, UpdateProductDto } from './dto/create-product-dto';
 import { Product, ProductDocument } from './entities';
 
@@ -60,16 +66,32 @@ export class ProductService {
     return docs;
   }
 
+  async findAllProduct(paginateDto: PaginateDto): Promise<any> {
+    const keyword = paginateDto.keyword
+      ? {
+          name: { $regex: paginateDto.keyword, $options: 'i' },
+        }
+      : {}
+    const total: number = await this.productModel.countDocuments({...keyword}).exec();
+    const pages = Math.ceil(total / Number(paginateDto.limit));
+    const docs: Product[] = await this.productModel
+      .find({...keyword})
+      .skip(Number(paginateDto.limit )* (paginateDto.page - 1))
+      .limit(Number(paginateDto.limit))
+      .exec();
+    return { total, docs ,pages,page:paginateDto.page};
+  }
+
   async findOneBySlug(slug: string) {
     console.log({ slug });
     return await this.productModel.findOne({ slug }).exec();
   }
 
   async deleteProductById(slug: string) {
-    const product = await this.productModel.findOneAndDelete({slug})
-     if(!product){
-      throw new NotFoundException(`product ${slug} not found`)
-     }
-     return true
+    const product = await this.productModel.findOneAndDelete({ slug });
+    if (!product) {
+      throw new NotFoundException(`product ${slug} not found`);
+    }
+    return true;
   }
 }

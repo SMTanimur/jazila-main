@@ -32,8 +32,7 @@ export class CreateProductDto {
 
   @ApiProperty()
   @IsString()
-  @IsNotEmpty()
-  readonly size: string;
+  readonly size?: string;
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto){}

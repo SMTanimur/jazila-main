@@ -19,7 +19,7 @@ const NewProductForm = () => {
     selectedImage,
   } = useProductImageUploader();
   console.log(image);
- 
+
   const { data: categories } = useGetAllCategory();
   const { data: brands } = useGetAllBrand();
   const { onSubmit, register, isLoading, errors } = useProductCreate(
@@ -44,7 +44,6 @@ const NewProductForm = () => {
               placeholder="Product name"
               {...register('name', {
                 required: true,
-                maxLength: 20,
               })}
             />
             . {errors.name && <span className=" flex text-red-500 ">ty</span>}
@@ -119,6 +118,7 @@ const NewProductForm = () => {
                     focus:text-sky-500 placeholder-gray-500 focus:border-sky-400 focus:ring-sky-400 transition duration-300 text-gray-200 p-4 shadow rounded h-10 w-full bg-gray-800  focus:bg-gray-800 focus:outline-none `}
               onChange={(e) => setBrand(e.target.value)}
             >
+              <option value="">Choose brand</option>
               {brands &&
                 brands.map((brand) => (
                   <option
@@ -143,7 +143,7 @@ const NewProductForm = () => {
                     }`}
               {...register('size')}
             >
-          
+              <option value="">Choose Size</option>
               {SizeList.map((List) => (
                 <option key={List} className=" text-slate-400" value={List}>
                   {List}
@@ -201,7 +201,9 @@ const NewProductForm = () => {
           </div>
         </div>
         <div className="mb-5">
-          <label className=" text-gray-200 text-sm font-bold ">Descriptions</label>
+          <label className=" text-gray-200 text-sm font-bold ">
+            Descriptions
+          </label>
           <textarea
             className={`border-2 border-sky-800 placeholder-gray-500 placeholder:italic focus:border-sky-400 focus:ring-sky-400 transition duration-300 text-gray-200   w-full resize-none  h-28 p-4 shadow rounded bg-gray-800 focus:outline-none ${
               errors.descriptions
@@ -222,7 +224,19 @@ const NewProductForm = () => {
           type="submit"
           className="w-full h-12 border hover:border-sky-400 hover:bg-sky-800  border-sky-500  bg-gray-900  px-7 rounded text-sm text-sky-400 hover:text-white font-medium duration-200"
         >
-          Create Product
+          {isLoading || imageLoader ? (
+            <ProgressBar
+              height="30"
+              width="30"
+              ariaLabel="progress-bar-loading"
+              wrapperStyle={{}}
+              wrapperClass="progress-bar-wrapper"
+              borderColor="#F4442E"
+              barColor="#51E5FF"
+            />
+          ) : (
+            'upload'
+          )}
         </button>
       </form>
     </React.Fragment>

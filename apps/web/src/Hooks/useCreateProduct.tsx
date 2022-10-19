@@ -14,6 +14,7 @@ export const useProductCreate = (images:any[],brand:any,category:any)=>{
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const onSubmit = handleSubmit(async(payload)=>{
@@ -30,6 +31,7 @@ export const useProductCreate = (images:any[],brand:any,category:any)=>{
       await mutateAsync(payload,{
         onSuccess:async()=>{
           toast.success('product create successfully')
+          reset()
           await queryClient.invalidateQueries(['product'])
         }
       })
