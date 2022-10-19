@@ -10,6 +10,8 @@ import { UploadModule } from './modules/upload/upload.module';
 
 import { memoryStorage } from 'multer';
 import { MulterModule } from '@nestjs/platform-express';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import { MulterModule } from '@nestjs/platform-express';
     UsersModule,
     UploadModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
