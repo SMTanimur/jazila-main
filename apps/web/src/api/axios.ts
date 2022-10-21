@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
  const api = axios.create({
-  baseURL:process.env.NEXT_PUBLIC_API_BASE_ENDPOINT||'http://localhost:3333',
+  baseURL:'http://localhost:3333',
   withCredentials: true,
 });
 
