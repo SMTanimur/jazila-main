@@ -1,6 +1,6 @@
 import { get } from 'env-var';
 export class ServerConfig {
-  public static readonly NX_PORT: number = get('NX_PORT')
+  public static readonly NX_PORT: number = get('PORT')
     .required()
     .asPortNumber();
 
