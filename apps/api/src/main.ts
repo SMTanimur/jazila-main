@@ -30,7 +30,7 @@
        cookie: {
          maxAge: 30 * 24 * 60 * 60 * 1000, // 7 days
          httpOnly: true,
-         domain: "https://jazila-main.vercel.app",
+         domain: "https://jazila-main-production.up.railway.app",
          sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
          secure: process.env.NODE_ENV === 'production',
        },
@@ -42,6 +42,13 @@
      })
    );
  
+   app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,UPDATE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+    next();
+  });
+  
    // Bypass cors issue
    app.enableCors({ credentials: true, origin: ServerConfig.NX_CLIENT_URL });
    //passport && session initialize
