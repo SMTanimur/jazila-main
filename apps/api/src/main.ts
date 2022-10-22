@@ -30,7 +30,7 @@
        cookie: {
          maxAge: 30 * 24 * 60 * 60 * 1000, // 7 days
          httpOnly: true,
-         domain: "vercel.app",
+         domain: "https://jazila-main.vercel.app",
          sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
          secure: process.env.NODE_ENV === 'production',
        },
