@@ -30,10 +30,10 @@ async function bootstrap() {
       cookie: {
         maxAge: 30 * 24 * 60 * 60 * 1000, // 7 days
         httpOnly: true,
-        // sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         secure: process.env.NODE_ENV === 'production',
-        domain: '.vercel.app',
-        sameSite: 'none',
+        domain: 'jazila-main.vercel.app',
+        // sameSite: 'none',
       
       },
       store: new MongoStore({
