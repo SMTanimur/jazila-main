@@ -30,9 +30,11 @@ async function bootstrap() {
       cookie: {
         maxAge: 30 * 24 * 60 * 60 * 1000, // 7 days
         httpOnly: true,
-        sameSite:"none",
+        // sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         secure: process.env.NODE_ENV === 'production',
-        domain: 'vercel.app',
+        domain: '.vercel.app',
+        sameSite: 'none',
+      
       },
       store: new MongoStore({
         uri: ServerConfig.NX_MONGODB_URI,
