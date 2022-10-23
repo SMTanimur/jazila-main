@@ -7,7 +7,6 @@
 
 # dependencies
 node_modules
-env
 # IDEs and editors
 /.idea
 .project
@@ -33,6 +32,15 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# vercel
+.vercel
 
 # System Files
 .DS_Store
