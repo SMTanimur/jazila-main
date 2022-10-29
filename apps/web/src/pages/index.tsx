@@ -23,7 +23,7 @@ export function Home() {
        <CategoriesCard/>
 
        {/*-----Section of miniProduct and popular #tag------- */}
-       <section className="lg:grid lg:grid-cols-4 gap-8 overflow-hidden">
+       {/* <section className="lg:grid lg:grid-cols-4 gap-8 overflow-hidden">
          <div className="hidden lg:block">
           <div>
             <a className=" font-bold border-b-2 border-pink-500 inline-block pb-1">
@@ -32,7 +32,19 @@ export function Home() {
           </div>
           <Tag/>
          </div>
+       </section> */}
+
+       {/**---------Latest Product------------ */}
+
+       <section className="py-5 flex flex-col gap-7">
+          <h2 className="text-xl md:text-2xl font-semibold text-gray-700">Latest Product</h2>
+          <div className="shadow-md border border-gray-200 p-5 rounded-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center">
+            <h1>dfh</h1>
+            <h1>dfh</h1>
+            <h1>dfh</h1>
+          </div>
        </section>
+       {/**---------Latest Product------------ */}
 
     </div>
     </React.Fragment>
