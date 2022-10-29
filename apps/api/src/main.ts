@@ -31,7 +31,7 @@ async function bootstrap() {
         maxAge: 30 * 24 * 60 * 60 * 1000, // 7 days
         httpOnly: true,
         sameSite: "none",
-        secure: process.env.NODE_ENV === 'production',
+        secure: true
       },
       store: new MongoStore({
         uri: ServerConfig.NX_MONGODB_URI,
