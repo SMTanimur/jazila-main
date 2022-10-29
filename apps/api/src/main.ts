@@ -30,7 +30,8 @@ async function bootstrap() {
       cookie: {
         maxAge: 30 * 24 * 60 * 60 * 1000, // 7 days
         httpOnly: true,
-        sameSite: "none",
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        domain:'.railway.app',
         secure: true
       },
       store: new MongoStore({
