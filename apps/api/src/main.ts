@@ -11,7 +11,7 @@ import passport = require('passport');
 import { AppModule } from './app/app.module';
 import { ServerConfig } from './app/configs/server.config';
 import { SwaggerConfig } from './app/configs/swagger.config';
-import * as cookieParser from 'cookie-parser';
+
 
 
 async function bootstrap() {
@@ -44,8 +44,6 @@ async function bootstrap() {
     })
   );
 
-  // somewhere in your initialization file
-app.use(cookieParser());
 
   // Bypass cors issue
   app.enableCors({ credentials: true, origin: ServerConfig.NX_CLIENT_URL });
