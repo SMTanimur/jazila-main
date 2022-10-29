@@ -13,7 +13,6 @@ import { ServerConfig } from './app/configs/server.config';
 import { SwaggerConfig } from './app/configs/swagger.config';
 
 
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
@@ -32,9 +31,7 @@ async function bootstrap() {
       cookie: {
         maxAge: 30 * 24 * 60 * 60 * 1000, // 7 days
         httpOnly: true,
-        sameSite: "none",
-        domain:'.railway.app',
-        secure: true
+       
       },
       store: new MongoStore({
         uri: ServerConfig.NX_MONGODB_URI,
