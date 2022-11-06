@@ -33,6 +33,7 @@ async function bootstrap() {
         httpOnly: true,
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         secure: process.env.NODE_ENV === 'production',
+        domain: process.env.NODE_ENV === 'development' ? '.localhost' : '.vercel.app'
       },
       store: new MongoStore({
         uri: ServerConfig.NX_MONGODB_URI,
