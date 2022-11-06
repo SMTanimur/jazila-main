@@ -46,7 +46,7 @@ async function bootstrap() {
     })
   );
 
-  app.use(cookieParser());
+  // app.use(cookieParser());
   // Bypass cors issue
   app.enableCors({
     credentials: true,
