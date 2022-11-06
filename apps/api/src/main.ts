@@ -11,7 +11,7 @@ import passport = require('passport');
 import { AppModule } from './app/app.module';
 import { ServerConfig } from './app/configs/server.config';
 import { SwaggerConfig } from './app/configs/swagger.config';
-import * as cookieParser from 'cookie-parser';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -45,8 +45,6 @@ async function bootstrap() {
       }),
     })
   );
-
-  // app.use(cookieParser());
   // Bypass cors issue
   app.enableCors({
     credentials: true,
