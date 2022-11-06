@@ -14,7 +14,7 @@ export class ServerConfig {
   public static readonly NX_SESSION_SECRET: string = get('NX_SESSION_SECRET')
     .required()
     .asString();
-  public static readonly NX_CLIENT_URL: string = get('NX_CLIENT_URL')
+  public static readonly NX_CLIENT_URL: string = get('CLIENT_URL')
     .required()
     .asString();
   public static readonly NX_CLOUDINARY_CLOUD_NAME: string = get(
