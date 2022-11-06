@@ -11,7 +11,7 @@ import passport = require('passport');
 import { AppModule } from './app/app.module';
 import { ServerConfig } from './app/configs/server.config';
 import { SwaggerConfig } from './app/configs/swagger.config';
-
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -33,7 +33,10 @@ async function bootstrap() {
         httpOnly: true,
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         secure: process.env.NODE_ENV === 'production',
-        domain: process.env.NODE_ENV === 'development' ? '.localhost' : '.vercel.app'
+        // domain:
+        //   process.env.NODE_ENV === 'production'
+        //     ? '.vercel.app'
+        //     : "undefined"
       },
       store: new MongoStore({
         uri: ServerConfig.NX_MONGODB_URI,
@@ -43,10 +46,12 @@ async function bootstrap() {
     })
   );
 
-
-
+  app.use(cookieParser());
   // Bypass cors issue
-  app.enableCors({ credentials: true, origin: [ServerConfig.NX_CLIENT_URL,"http://localhost:4200"] });
+  app.enableCors({
+    credentials: true,
+    origin: [ServerConfig.NX_CLIENT_URL, 'http://localhost:4200'],
+  });
   //passport && session initialize
   app.use(passport.initialize());
   app.use(passport.session());
