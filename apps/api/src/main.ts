@@ -31,9 +31,8 @@ async function bootstrap() {
       cookie: {
         maxAge: 30 * 24 * 60 * 60 * 1000, // 7 days
         httpOnly: true,
-        domain:'.railway.app',
-        sameSite:'none',
-        secure:true
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        secure: process.env.NODE_ENV === 'production',
       },
       store: new MongoStore({
         uri: ServerConfig.NX_MONGODB_URI,
@@ -44,8 +43,9 @@ async function bootstrap() {
   );
 
 
+
   // Bypass cors issue
-  app.enableCors({ credentials: true, origin: ServerConfig.NX_CLIENT_URL });
+  app.enableCors({ credentials: true, origin: [ServerConfig.NX_CLIENT_URL,"http://localhost:4200"] });
   //passport && session initialize
   app.use(passport.initialize());
   app.use(passport.session());
