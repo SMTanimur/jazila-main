@@ -1,5 +1,6 @@
 {
   "name": "jazila-main",
+  "proxy": "https://jazila-main-production.up.railway.app",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -27,6 +28,7 @@
     "core-js": "^3.6.5",
     "env-var": "^7.2.0",
     "express-session": "^1.17.3",
+    "immer": "^9.0.16",
     "lodash": "^4.17.21",
     "mongoose": "^6.5.4",
     "mongoose-autopopulate": "^0.16.1",
