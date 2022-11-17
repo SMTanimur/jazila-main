@@ -1,12 +1,15 @@
 import BannerCarousel from "@components/Home/BannerCarousel";
 import CategoriesCard from "@components/Home/CategoriesCard";
 import SidebarCategories from "@components/Layout/SideBar/SideBarCategories";
-import Tag from "@components/Layout/SideBar/Tag";
+import MinProductCard from "@components/Product/MinProductCard";
+import { useAllProduct } from "@Hooks/useProduct";
 import Head from "next/head";
 import React from "react";
 import AppLayout from "../components/Layout/AppLayout";
 
 export function Home() {
+  const{data:topProducts} =useAllProduct()
+  console.log(topProducts)
  
   return (
      <React.Fragment>
@@ -22,27 +25,21 @@ export function Home() {
        </section>
        <CategoriesCard/>
 
-       {/*-----Section of miniProduct and popular #tag------- */}
-       {/* <section className="lg:grid lg:grid-cols-4 gap-8 overflow-hidden">
-         <div className="hidden lg:block">
-          <div>
-            <a className=" font-bold border-b-2 border-pink-500 inline-block pb-1">
-              POPULAR TAG
-            </a>
-          </div>
-          <Tag/>
-         </div>
-       </section> */}
+     
 
        {/**---------Latest Product------------ */}
 
        <section className="py-5 flex flex-col gap-7">
           <h2 className="text-xl md:text-2xl font-semibold text-gray-700">Latest Product</h2>
-          <div className="shadow-md border border-gray-200 p-5 rounded-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 place-items-center">
-            <h1>dfh</h1>
-            <h1>dfh</h1>
-            <h1>dfh</h1>
-          </div>
+          <div className=" border border-gray-200 rounded sm:p-5 p-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 sm:gap-6 gap-2 divide-y">
+                {topProducts? topProducts.docs.map((pro) => (
+                  <div key={pro._id} >
+                    <MinProductCard productData={pro} />
+                  </div>
+                )): null}
+              </div>
+            </div>
        </section>
        {/**---------Latest Product------------ */}
 

@@ -1,3 +1,6 @@
+import { OrderModule } from './modules/order/order.module';
+import { CartModule } from './modules/cart/cart.module';
+import { FlashsalesModule } from './modules/flashsales/flashsales.module';
 import { ProductModule } from './modules/product/product.module';
 import { BrandModule } from './modules/brand/brand.module';
 import { CategoryModule } from './modules/category/category.module';
@@ -15,6 +18,9 @@ import { AppService } from './app.service';
 
 @Module({
   imports: [
+    OrderModule,
+    CartModule,
+    FlashsalesModule,
     ProductModule,
     BrandModule,
     CategoryModule,

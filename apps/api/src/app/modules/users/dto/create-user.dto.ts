@@ -18,7 +18,8 @@ export class CreateUserDto {
   @Matches(/^\S+@\S+\.\S+$/, { message: 'please type your valid email' })
   @ApiProperty()
   readonly email: string;
-
+  
+  
   @IsNotEmpty()
   @IsString()
   @MinLength(8,{message:'password should be min 8 character'})

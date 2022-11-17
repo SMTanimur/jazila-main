@@ -1,0 +1,5 @@
+export enum ORDER_STATUS_ENUM {
+  CONFIRM = 'CONFIRM',
+  CANCEL = 'CANCEL',
+  DELIVERED = 'DELIVERED',
+}

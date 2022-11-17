@@ -1,0 +1,4 @@
+export enum STATUS_FLASHSALE_ENUM {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+}

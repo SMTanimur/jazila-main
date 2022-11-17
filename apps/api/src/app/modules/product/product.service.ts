@@ -74,6 +74,7 @@ export class ProductService {
       : {}
     const total: number = await this.productModel.countDocuments({...keyword}).exec();
     const pages = Math.ceil(total / Number(paginateDto.limit));
+    console.log(paginateDto.limit)
     const docs: Product[] = await this.productModel
       .find({...keyword})
       .skip(Number(paginateDto.limit )* (paginateDto.page - 1))

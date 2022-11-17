@@ -1,6 +1,5 @@
 {
   "name": "jazila-main",
-  "proxy": "https://jazila-main-production.up.railway.app",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {

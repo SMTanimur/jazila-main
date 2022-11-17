@@ -129,25 +129,7 @@ export const categoriesOptionList = [
   'Home Furniture',
   'Kitchen',
 ];
-export const brandsList = [
-  'Apple',
-  'Samsung',
-  'Huawei',
-  'OPPO',
-  'Realme',
-  'Vivo',
-  'Apple',
-  'HP',
-  'Dell',
-  'Acer',
-  'Asus',
-  'NIKE',
-  'Hermes',
-  'Gucci',
-  'Zara',
-  'Philippe',
-  'Rolex',
-];
+
 export const ColorList = [
   { value: 'red', label: 'red' },
   { value: 'yellow', label: 'yellow' },
